@@ -48,9 +48,9 @@ cd mcbot
 ```powershell
 .\scripts\setup.ps1
 ```
-```
+
 or you can use
-```
+
 ```bash
 npm install mineflayer mineflayer-pathfinder minecraft-data dotenv @openrouter/sdk
 ```
