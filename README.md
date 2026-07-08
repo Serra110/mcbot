@@ -1,5 +1,5 @@
 Minecraft AI Bot
-YOU NEED NODE.JS
+YOU NEED NODE.JS https://nodejs.org/pt/download
 
 A Minecraft bot that connects to a server, reads chat messages, and performs actions like following players, mining blocks, crafting items, and building structures using natural language commands.
 
