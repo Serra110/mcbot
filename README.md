@@ -243,7 +243,7 @@ stop
 - minecraft-data
 - dotenv
 - @openrouter/sdk
-
+npm install mineflayer mineflayer-pathfinder minecraft-data dotenv @openrouter/sdk
 ### External software
 
 - Node.js 18+
