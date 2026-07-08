@@ -1,100 +1,256 @@
-Minecraft AI Bot
-YOU NEED NODE.JS https://nodejs.org/pt/download
+# Minecraft AI Bot
 
-A Minecraft bot that connects to a server, reads chat messages, and performs actions like following players, mining blocks, crafting items, and building structures using natural language commands.
+A Minecraft bot powered by AIthat can chat with players, mine resources, craft items, build structures, fight mobs, and perform complex tasks automatically.
 
-By default, it uses Ollama for local AI processing. You can also enable Hack Club AI for more complex tasks, with an optional monthly spending limit.
+By default, the bot uses **Ollama** to run AI models locally (free). For more demanding tasks, you can optionally enable **Hack Club AI** to use larger paid models while tracking your monthly spending.
 
-Features
-Natural language commands
-Fast built-in commands (follow me, mine stone, stop, status) without using AI
-AI-powered command understanding for more complex requests
-Multi-step planning for building and larger tasks
-Automatic combat against hostile mobs
-Memory system (!remember or !lembrar since i programmed for portuguese use) to store useful information
-API budget tracking (!budget, maybe !orcamento since i programmed this on portuguese) for Hack Club AI usage
-Requirements
+---
 
--Node.js	version 18+	
--Minecraft Server	Any	Local or online (online-mode=false for offline authentication)
-Ollama	Any	Recommended local AI ( i used 3b since my pc aint that good)
-Hack Club AI API Key	Optional	Required only if HACKCLUB_ENABLED=true
-Installation
-# Windows (PowerShell):
-git clone https://github.com/Serra110/mcbot.git |
-cd mcbot |
+## Features
+
+-  Fast built-in commands without AI
+-  AI-powered command understanding
+-  Automatic mining
+-  Crafting support
+-  Automatic combat against hostile mobs
+-  Player following and navigation
+-  Memory system (`!remember` / `!lembrar`)
+-  Hack Club AI budget tracking (`!budget` / `!orcamento`)
+- 🇵🇹 Portuguese and English command support at least on theory, if english doesnt work, use portuguese. ronaldo suuuu.
+
+---
+
+# Requirements
+
+
+- Node.js 18+ Required to run the bot 
+- Minecraft Java Server Local or remote server , i use paper 
+ollama, i used the 3b model
+ Hack Club AI API Key  Optional  Only if using paid AI models 
+
+Download Node.js:
+
+https://nodejs.org/
+
+---
+
+# Installation
+
+## Clone the repository
+
+```bash
+git clone https://github.com/Serra110/mcbot.git
+cd mcbot
+```
+
+### Windows
+
+```powershell
 .\scripts\setup.ps1
-# Linux / macOS
-git clone https://github.com/Serra110/mcbot.git |
-cd mcbot | 
+```
+
+### Linux / macOS
+
+```bash
 bash scripts/setup.sh
+```
+it will:
 
+- Install all npm dependencies
+- Create the `data/` folder
 
-The setup script installs dependencies, creates the data/ folder, and copies .env.example to .env.
+# Configuration
 
-Configuration
+Edit the .env file.
 
-Edit the .env file:
-
+env
 MC_HOST=localhost
 MC_PORT=25565
-MC_USERNAME= change 
+MC_USERNAME=YourBotName
 MC_AUTH=offline
 
 OLLAMA_BASE_URL=http://localhost:11434
 OLLAMA_MODEL=llama3.1:3b
-# IF Using Ollama
-Install Ollama.
+
+
+# AI Providers
+
+## Ollama (Free)
+
+Ollama is the default AI provider.
+
+Install Ollama:
+
+https://ollama.com/
+
 Download a model:
+
+```bash
 ollama pull llama3.1:3b
-Make sure Ollama is running.
-# IF using hack club AI
-check .env file since it explains it well.
+```
 
-Hack Club AI is only used for more demanding tasks such as planning large builds. Regular commands continue to use Ollama.
+or
 
+```bash
+ollama pull llama3.1:8b
+```
+
+Make sure Ollama is running before starting the bot.
+
+---
+
+## Hack Club AI (Optional)
+
+Hack Club AI lets the bot use larger paid models for more complex tasks.
+Simple commands continue to use Ollama.
+Enable it inside `.env`:
+```env
+HACKCLUB_ENABLED=true
+HACKCLUB_API_KEY=YOUR_KEY
+```
+You can also set a monthly spending limit.
 # Running the Bot
 
-Start your Minecraft server. ( i used paper 1.20.1)
+Start your Minecraft server.
+
+*(Tested on Paper 1.20.1)*
 
 Start Ollama.
 
-## Run the bot:
+Run the bot:
 
+```bash
 npm start
+```
 
 Or use the provided scripts.
 
-Windows:
+### Windows
 
+```powershell
 .\scripts\start.ps1
+```
 
-Linux/macOS:
+### Linux / macOS
 
+```bash
 bash scripts/start.sh
+```
 
-Then join the server and type commands in chat.
+Join the Minecraft server and chat with the bot.
 
-Command	Description, if it doesnt work translate to portuguese
-follow me	Follow the nearest player
-mine stone 10	Mine 10 stone blocks
-stop	Cancel the current task
-status	Show the bot's current activity
-build a small house	Generate and execute a building plan
-!budget	Show this month's API usage
-!remember	Display stored memory
+---
+
+# Commands
+ follow me  Follow the nearest player 
+ stop Stop the current task
+ status  Show current activity 
+ mine stone 10  Mine 10 stone blocks 
+ build a small house  Build a small house 
+ !remember Show stored memory 
+!budget  Show Hack Club AI usage 
+
+If a command isn't recognized, try translating it to Portuguese.
 
 
+# Testing
+
+## 1. Start a Minecraft server
+
+Set:
+
+```properties
+online-mode=false
+```
+
+inside `server.properties`.
+
+---
+
+## 2. Start Ollama
+
+```bash
+ollama pull llama3.1:3b
+```
+
+then
+
+```bash
+ollama serve
+```
+
+---
+
+## 3. Start the bot
+
+```bash
+npm start
+```
+
+Expected output:
+
+```
+Bot connected to localhost:25565
+```
+
+---
+
+## 4. Join the server
+
+Open Minecraft and connect to:
+
+```
+localhost:25565
+```
+
+---
+
+## 5. Try these commands
+
+```
+follow me
+
+mine stone 10
+
+status
+
+stop
+
+!remember
+
+!budget
+```
+
+---
 
 
+# Troubleshooting
 
 
-Troubleshooting
-Problem	Solution
-ECONNREFUSED	Check that the Minecraft server is running and the host/port are correct.
-Ollama isn't responding	Make sure Ollama is running and the selected model is installed.
-Bot gets kicked	Use MC_AUTH=offline and set online-mode=false in server.properties.
-AI doesn't understand commands	Set LOG_LEVEL=debug in .env to view detailed logs.
-License:
+ ECONNREFUSED | Check that the Minecraft server is running and the host/port are correct. 
+ Ollama isn't responding | Verify that Ollama is running and the selected model is installed. 
+ Bot gets kicked | Set `online-mode=false` and use `MC_AUTH=offline`. 
+ AI doesn't understand commands | Set `LOG_LEVEL=debug` inside `.env`. 
+ Missing dependencies | Run `npm install`. 
 
-MIT
+
+# Dependencies
+
+### npm packages
+
+- mineflayer
+- mineflayer-pathfinder
+- minecraft-data
+- dotenv
+- @openrouter/sdk
+
+### External software
+
+- Node.js 18+
+- Minecraft Java Edition
+- Ollama 
+- Hack Club AI API Key (optional)
+
+---
+---
+
