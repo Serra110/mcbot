@@ -20,12 +20,12 @@ Ollama	Any	Recommended local AI ( i used 3b since my pc aint that good)
 Hack Club AI API Key	Optional	Required only if HACKCLUB_ENABLED=true
 Installation
 # Windows (PowerShell):
-git clone https://github.com/Serra110/mcbot.git
-cd mcbot
+git clone https://github.com/Serra110/mcbot.git |
+cd mcbot |
 .\scripts\setup.ps1
 # Linux / macOS
-git clone https://github.com/Serra110/mcbot.git
-cd mcbot
+git clone https://github.com/Serra110/mcbot.git |
+cd mcbot | 
 bash scripts/setup.sh
 
 
