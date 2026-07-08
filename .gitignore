@@ -1,0 +1,16 @@
+# Dependencias
+node_modules/
+
+# Configuracao local (contem chaves API)
+.env
+
+# Dados gerados em runtime
+data/*.json
+
+# Logs
+*.log
+npm-debug.log*
+
+# Sistema
+.DS_Store
+Thumbs.db
