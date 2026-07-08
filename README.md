@@ -1,4 +1,5 @@
 # Minecraft AI Bot
+# It is impossible to try the project without building it, I am sorry but its a bot.
 
 A Minecraft bot powered by AIthat can chat with players, mine resources, craft items, build structures, fight mobs, and perform complex tasks automatically.
 
@@ -259,5 +260,7 @@ npm install mineflayer mineflayer-pathfinder minecraft-data dotenv @openrouter/s
 - Hack Club AI API Key (optional)
 
 ---
----
+### Disclaimer
+AI was used to debug and also inline was used.
+
 
