@@ -49,7 +49,7 @@ cd mcbot
 .\scripts\setup.ps1
 ```
 
-or you can use
+or you can use in vscode terminal with the folder mcbot open:
 
 ```bash
 npm install mineflayer mineflayer-pathfinder minecraft-data dotenv @openrouter/sdk
