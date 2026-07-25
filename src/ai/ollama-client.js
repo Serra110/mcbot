@@ -28,7 +28,7 @@ async function chat(messages, { jsonMode = false, temperature = 0.4 } = {}) {
 
   const data = await res.json();
   const text = data.message?.content ?? '';
-  logger.debug('[ollama] resposta:', text.slice(0, 200));
+  logger.debug('[ollama] response:', text.slice(0, 200));
   return text;
 }
 

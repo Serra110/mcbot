@@ -15,17 +15,17 @@ function checkNode() {
   const version = process.versions.node;
   const major = parseInt(version.split('.')[0], 10);
   if (major < 18) {
-    console.error(`[mcbot] ERRO: Node.js 18+ necessario (tens v${version})`);
-    console.error('        Descarrega em https://nodejs.org/');
+    console.error(`[mcbot] ERROR: Node.js 18+ required (you have v${version})`);
+    console.error('        Download from https://nodejs.org/');
     process.exit(1);
   }
-  log(`Node.js v${version} detectado`);
+  log(`Node.js v${version} detected`);
 }
 
 function ensureDir(dir) {
   if (!fs.existsSync(dir)) {
     fs.mkdirSync(dir, { recursive: true });
-    log(`Pasta "${path.relative(ROOT, dir)}/" criada`);
+    log(`Folder "${path.relative(ROOT, dir)}/" created`);
   }
 }
 
@@ -34,28 +34,28 @@ function ensureEnv() {
   const env = path.join(ROOT, '.env');
 
   if (!fs.existsSync(example)) {
-    log('Aviso: .env.example nao encontrado — salta criacao do .env');
+    log('Warning: .env.example not found — skipping .env creation');
     return;
   }
 
   if (fs.existsSync(env)) {
-    log('.env ja existe — nada alterado');
+    log('.env already exists — nothing changed');
     return;
   }
 
   fs.copyFileSync(example, env);
-  log('.env criado a partir de .env.example');
-  log('>>> Abre o .env e preenche os dados do teu servidor <<<');
+  log('.env created from .env.example');
+  log('>>> Open .env and fill in your server details <<<');
 }
 
 function npmInstall() {
   try {
-    log('A instalar dependencias...');
+    log('Installing dependencies...');
     execSync('npm install', { cwd: ROOT, stdio: 'inherit' });
-    log('Dependencias instaladas com sucesso');
+    log('Dependencies installed successfully');
   } catch (e) {
-    console.error('[mcbot] ERRO: Falhou ao instalar dependencias');
-    console.error('        Tenta manualmente: npm install');
+    console.error('[mcbot] ERROR: Failed to install dependencies');
+    console.error('        Try manually: npm install');
     process.exit(1);
   }
 }
@@ -63,27 +63,27 @@ function npmInstall() {
 function printNextSteps() {
   console.log('');
   console.log('========================================');
-  console.log('  Setup concluido com sucesso!');
+  console.log('  Setup completed successfully!');
   console.log('========================================');
   console.log('');
-  console.log('Proximos passos:');
+  console.log('Next steps:');
   console.log('');
-  console.log('  1. Abre o ficheiro .env e configura o host/porta do teu servidor Minecraft');
-  console.log('  2. Instala e arranca o Ollama:');
-  console.log('     - Descarrega: https://ollama.com/');
-  console.log('     - Corre: ollama pull llama3.1:8b');
-  console.log('  3. Arranca o bot:');
+  console.log('  1. Open the .env file and configure your Minecraft server host/port');
+  console.log('  2. Install and start Ollama:');
+  console.log('     - Download: https://ollama.com/');
+  console.log('     - Run: ollama pull llama3.1:8b');
+  console.log('  3. Start the bot:');
   console.log('     - Windows:   .\\scripts\\start.ps1');
   console.log('     - Linux/Mac: bash scripts/start.sh');
-  console.log('     - Ou simplesmente: npm start');
+  console.log('     - Or simply: npm start');
   console.log('');
-  console.log('Comandos no chat do Minecraft:');
-  console.log('  segue-me | minera pedra | para | status | !orcamento | !lembra');
+  console.log('Minecraft chat commands:');
+  console.log('  follow me | mine stone | stop | status | !budget | !remember');
   console.log('');
 }
 
 function main() {
-  log('A iniciar setup...');
+  log('Starting setup...');
   console.log('');
   checkNode();
   ensureDir(path.join(ROOT, 'data'));

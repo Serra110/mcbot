@@ -39,7 +39,7 @@ async function chatRaw(messages, { jsonMode = false, temperature = 0.4, maxToken
     
     
     if (jsonMode) {
-      logger.warn('[hackclub] pedido com responseFormat falhou, a tentar sem json mode:', err.message);
+      logger.warn('[hackclub] request with responseFormat failed, retrying without json mode:', err.message);
       const { responseFormat, ...rest } = chatRequest;
       return await c.chat.send({ chatRequest: rest });
     }
@@ -52,9 +52,8 @@ async function chatRaw(messages, { jsonMode = false, temperature = 0.4, maxToken
 async function chat(messages, opts = {}) {
   const response = await chatRaw(messages, opts);
   const text = response?.choices?.[0]?.message?.content ?? '';
-  logger.debug('[hackclub] resposta:', String(text).slice(0, 200));
+  logger.debug('[hackclub] response:', String(text).slice(0, 200));
   return text;
 }
 
 module.exports = { chat, chatRaw };
-

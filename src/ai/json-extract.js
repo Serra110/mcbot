@@ -1,6 +1,6 @@
 function extractJson(rawText) {
   if (!rawText || typeof rawText !== 'string') {
-    throw new Error('Resposta vazia ou invalida do LLM.');
+    throw new Error('Empty or invalid response from LLM.');
   }
 
   let text = rawText.trim();

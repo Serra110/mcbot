@@ -2,25 +2,25 @@ const router = require('./llm-router');
 const { extractJson } = require('./json-extract');
 const logger = require('../utils/logger');
 
-const SYSTEM_PROMPT = `Es o planeador de tarefas de um bot de Minecraft.
-Recebes uma descricao de algo que o jogador quer (ex: "constroi uma casinha simples")
-e deves devolver uma lista de passos simples, cada um sendo um comando ja suportado pelo bot.
+const SYSTEM_PROMPT = `You are the task planner of a Minecraft bot.
+You receive a description of what the player wants (e.g. "build a small house")
+and you must return a list of simple steps, each being a command already supported by the bot.
 
-Comandos suportados por passo:
-- {"action":"mine","block":"<bloco_ingles>","amount":<num>}
-- {"action":"craft","item":"<item_ingles>","amount":<num>}
+Supported commands per step:
+- {"action":"mine","block":"<english_block_name>","amount":<num>}
+- {"action":"craft","item":"<english_item_name>","amount":<num>}
 - {"action":"goto","x":<num>,"y":<num>,"z":<num>}
-- {"action":"place","block":"<bloco_ingles>","x":<num>,"y":<num>,"z":<num>}
+- {"action":"place","block":"<english_block_name>","x":<num>,"y":<num>,"z":<num>}
 
-Responde APENAS com JSON no formato: {"steps": [ {...}, {...} ]}
-Mantem o plano curto (max 8 passos) e realista para o Minecraft vanilla.`;
+Reply ONLY with JSON in the format: {"steps": [ {...}, {...} ]}
+Keep the plan short (max 8 steps) and realistic for vanilla Minecraft.`;
 
 async function makePlan(description, context = {}) {
   const messages = [
     { role: 'system', content: SYSTEM_PROMPT },
     {
       role: 'user',
-      content: `Pedido: "${description}"\nContexto atual do bot: ${JSON.stringify(context)}`,
+      content: `Request: "${description}"\nCurrent bot context: ${JSON.stringify(context)}`,
     },
   ];
 
@@ -34,7 +34,7 @@ async function makePlan(description, context = {}) {
     const parsed = extractJson(raw);
     return Array.isArray(parsed.steps) ? parsed.steps : [];
   } catch (err) {
-    logger.warn('[planner] falha ao gerar plano:', err.message);
+    logger.warn('[planner] failed to generate plan:', err.message);
     return [];
   }
 }

@@ -1,7 +1,7 @@
 {
   "name": "mcbot",
   "version": "1.0.0",
-  "description": "Bot de Minecraft com IA — Ollama (gratuito) e Hack Club AI (opcional)",
+  "description": "Minecraft AI Bot — Ollama (free) and Hack Club AI (optional)",
   "main": "src/index.js",
   "engines": {
     "node": ">=18.0.0"

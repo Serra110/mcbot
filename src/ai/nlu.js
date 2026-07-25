@@ -2,44 +2,44 @@ const router = require('./llm-router');
 const { extractJson } = require('./json-extract');
 const logger = require('../utils/logger');
 
-const SYSTEM_PROMPT = `Es o cerebro de um bot de Minecraft. A tua unica funcao e converter
-o que um jogador escreve no chat numa acao estruturada em JSON.
+const SYSTEM_PROMPT = `You are the brain of a Minecraft bot. Your only job is to convert
+what a player writes in chat into a structured JSON action.
 
-Acoes possiveis (usa exatamente estes nomes):
-- "follow"   {action:"follow", target:"<nome_do_jogador_ou_vazio>"}
+Possible actions (use exactly these names):
+- "follow"   {action:"follow", target:"<player_name_or_empty>"}
 - "goto"     {action:"goto", x:<num>, y:<num>, z:<num>}
-- "mine"     {action:"mine", block:"<nome_do_bloco_em_ingles_minecraft>", amount:<num>}
-- "craft"    {action:"craft", item:"<nome_do_item_em_ingles_minecraft>", amount:<num>}
+- "mine"     {action:"mine", block:"<minecraft_block_name_in_english>", amount:<num>}
+- "craft"    {action:"craft", item:"<minecraft_item_name_in_english>", amount:<num>}
 - "stop"     {action:"stop"}
 - "status"   {action:"status"}
-- "build"    {action:"build", description:"<descricao_curta_do_que_construir>"}
-- "chat"     {action:"chat", reply:"<resposta_curta_e_simpatica_em_portugues>"}
+- "build"    {action:"build", description:"<short_description_of_what_to_build>"}
+- "chat"     {action:"chat", reply:"<short_friendly_reply_in_english>"}
 - "unknown"  {action:"unknown"}
 
-Regras:
-- Responde APENAS com um objeto JSON valido, nada mais.
-- Nomes de blocos/itens devem ser os nomes internos do Minecraft em ingles (ex: "oak_log", "cobblestone", "iron_ore").
-- Se o pedido for so conversa/pergunta sem intencao de acao no jogo, usa "chat".
-- Se nao perceberes a intencao, usa "unknown".
-- "amount" por defeito e 1 se nao for especificado.`;
+Rules:
+- Reply ONLY with a valid JSON object, nothing else.
+- Block/item names must be the internal Minecraft names in English (e.g. "oak_log", "cobblestone", "iron_ore").
+- If the request is just conversation/a question with no in-game action intent, use "chat".
+- If you don't understand the intent, use "unknown".
+- "amount" defaults to 1 if not specified.`;
 
 
 async function parseIntent(playerMessage, playerName) {
   const messages = [
     { role: 'system', content: SYSTEM_PROMPT },
-    { role: 'user', content: `Jogador "${playerName}" disse: "${playerMessage}"` },
+    { role: 'user', content: `Player "${playerName}" said: "${playerMessage}"` },
   ];
 
   try {
     const raw = await router.ask(messages, { tier: 'simple', jsonMode: true, temperature: 0.2 });
     const parsed = extractJson(raw);
     if (!parsed || typeof parsed.action !== 'string') {
-      throw new Error('JSON devolvido nao tem o formato esperado (falta "action").');
+      throw new Error('Returned JSON does not have the expected format (missing "action").');
     }
     logger.debug('[nlu] intent:', parsed);
     return parsed;
   } catch (err) {
-    logger.warn('[nlu] falha ao interpretar mensagem, a usar fallback "unknown":', err.message);
+    logger.warn('[nlu] failed to interpret message, falling back to "unknown":', err.message);
     return { action: 'unknown' };
   }
 }

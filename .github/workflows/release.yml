@@ -37,21 +37,21 @@ jobs:
           body: |
             ## mcbot ${{ github.ref_name }}
 
-            Bot de Minecraft com IA — Ollama (gratuito) e Hack Club AI (opcional).
+            Minecraft AI Bot — Ollama (free) and Hack Club AI (optional).
 
-            ### Instalacao rapida
+            ### Quick setup
 
-            1. Descarrega o ficheiro para a tua plataforma:
+            1. Download the file for your platform:
                - **Windows**: `mcbot-${{ github.ref_name }}.zip`
                - **Linux/Mac**: `mcbot-${{ github.ref_name }}.tar.gz`
-            2. Descompacta e entra na pasta
-            3. Corre o script de setup:
+            2. Extract and enter the folder
+            3. Run the setup script:
                - **Windows**: `.\scripts\setup.ps1`
                - **Linux/Mac**: `bash scripts/setup.sh`
-            4. Abre o `.env` e configura os dados do teu servidor
-            5. Arranca o bot com o script de start
+            4. Open `.env` and configure your server details
+            5. Start the bot with the start script
 
-            ### Requisitos
+            ### Requirements
 
             - Node.js 18+
             - Ollama (https://ollama.com/)

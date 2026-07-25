@@ -16,7 +16,7 @@ function followPlayer(bot, playerName) {
 
   const target = playerName ? bot.players[playerName]?.entity : findNearestPlayerEntity(bot);
   if (!target) {
-    bot.chat(`Nao vejo o/a ${playerName || 'jogador'} perto de mim.`);
+    bot.chat(`I can't see ${playerName || 'a player'} nearby.`);
     return;
   }
 
@@ -28,7 +28,7 @@ function followPlayer(bot, playerName) {
 
   goFollow();
   followInterval = setInterval(goFollow, 1500);
-  bot.chat(`A seguir ${playerName || 'jogador mais proximo'}!`);
+  bot.chat(`Following ${playerName || 'nearest player'}!`);
 }
 
 function findNearestPlayerEntity(bot) {
@@ -42,21 +42,21 @@ function findNearestPlayerEntity(bot) {
 
 async function goTo(bot, x, y, z) {
   stopFollowing(bot);
-  bot.chat(`A ir para (${x}, ${y}, ${z})...`);
+  bot.chat(`Going to (${x}, ${y}, ${z})...`);
   const goal = new goals.GoalBlock(x, y, z);
   try {
     await bot.pathfinder.goto(goal);
-    bot.chat('Cheguei!');
+    bot.chat('Arrived!');
   } catch (err) {
-    logger.warn('[movement] falha ao chegar ao destino:', err.message);
-    bot.chat('Nao consegui chegar la, o caminho deve estar bloqueado.');
+    logger.warn('[movement] failed to reach destination:', err.message);
+    bot.chat("Couldn't reach the destination, the path might be blocked.");
   }
 }
 
 function stop(bot) {
   stopFollowing(bot);
   bot.clearControlStates();
-  bot.chat('Parei.');
+  bot.chat('Stopped.');
 }
 
 module.exports = { followPlayer, goTo, stop, stopFollowing, findNearestPlayerEntity };

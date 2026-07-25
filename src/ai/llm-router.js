@@ -9,7 +9,7 @@ async function askFree(messages, opts = {}) {
     return await ollama.chat(messages, opts);
   } catch (err) {
     logger.error(
-      '[llm-router] Ollama falhou. Confirma que o Ollama esta a correr (ollama serve) e que o modelo foi puxado (ollama pull ' +
+      '[llm-router] Ollama failed. Check that Ollama is running (ollama serve) and the model is pulled (ollama pull ' +
         config.ai.ollama.model +
         '):',
       err.message
@@ -23,10 +23,10 @@ async function ask(messages, { tier = 'simple', ...opts } = {}) {
     try {
       return await paid.chat(messages, opts);
     } catch (err) {
-      if (err.message === 'ORCAMENTO_ESGOTADO') {
-        logger.warn('[llm-router] orcamento esgotado -> a usar Ollama (gratuito) em vez da Hack Club AI.');
+      if (err.message === 'BUDGET_EXHAUSTED') {
+        logger.warn('[llm-router] budget exhausted -> using Ollama (free) instead of Hack Club AI.');
       } else {
-        logger.warn('[llm-router] Hack Club AI falhou, a usar Ollama (gratuito):', err.message);
+        logger.warn('[llm-router] Hack Club AI failed, using Ollama (free):', err.message);
       }
       return askFree(messages, opts);
     }

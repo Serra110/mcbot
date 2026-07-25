@@ -6,19 +6,19 @@ const hackclub = require('./hackclub-client');
 
 async function chat(messages, { temperature = 0.5, maxTokens = 800, jsonMode = false } = {}) {
   if (!config.ai.hackclub.enabled) {
-    throw new Error('Hack Club AI desativada (HACKCLUB_ENABLED=false no .env). Usa a IA gratuita (Ollama).');
+    throw new Error('Hack Club AI is disabled (HACKCLUB_ENABLED=false in .env). Use the free AI (Ollama).');
   }
   if (!config.ai.hackclub.apiKey) {
-    throw new Error('HACKCLUB_API_KEY nao configurada no .env');
+    throw new Error('HACKCLUB_API_KEY not configured in .env');
   }
 
   
   if (!budget.canSpend(maxTokens * 2)) {
     const status = budget.getStatus();
     logger.warn(
-      `[budget] Limite mensal atingido (${status.spentEur}€/${status.limitEur}€). A recusar chamada a Hack Club AI.`
+      `[budget] Monthly limit reached (${status.spentEur}€/${status.limitEur}€). Refusing Hack Club AI call.`
     );
-    throw new Error('ORCAMENTO_ESGOTADO');
+    throw new Error('BUDGET_EXHAUSTED');
   }
 
   const response = await hackclub.chatRaw(messages, { temperature, maxTokens, jsonMode });
@@ -31,7 +31,7 @@ async function chat(messages, { temperature = 0.5, maxTokens = 800, jsonMode = f
     budget.recordSpend(usage?.totalTokens ?? maxTokens);
   }
 
-  logger.info('[hackclub-paid] chamada concluida, tokens:', usage?.totalTokens ?? '??');
+  logger.info('[hackclub-paid] call completed, tokens:', usage?.totalTokens ?? '??');
   return text;
 }
 

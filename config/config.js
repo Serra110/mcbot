@@ -44,7 +44,7 @@ const config = {
 
   general: {
     logLevel: process.env.LOG_LEVEL || 'info',
-    language: process.env.BOT_LANGUAGE || 'pt',
+    language: process.env.BOT_LANGUAGE || 'en',
   },
 
   paths: {

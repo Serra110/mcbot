@@ -60,7 +60,7 @@ function recordSpend(totalTokens) {
   state.callCount += 1;
   saveState(state);
   logger.info(
-    `[budget] +${cost.toFixed(5)}€ (tokens: ${totalTokens}) | total mes: ${state.spentEur.toFixed(4)}€ / ${config.budget.monthlyEur}€`
+    `[budget] +${cost.toFixed(5)}€ (tokens: ${totalTokens}) | month total: ${state.spentEur.toFixed(4)}€ / ${config.budget.monthlyEur}€`
   );
   return getStatus();
 }
@@ -73,7 +73,7 @@ function recordActualCostUsd(costUsd) {
   state.callCount += 1;
   saveState(state);
   logger.info(
-    `[budget] +${costEur.toFixed(5)}€ (custo real: $${costUsd.toFixed(5)}) | total mes: ${state.spentEur.toFixed(4)}€ / ${config.budget.monthlyEur}€`
+    `[budget] +${costEur.toFixed(5)}€ (actual cost: $${costUsd.toFixed(5)}) | month total: ${state.spentEur.toFixed(4)}€ / ${config.budget.monthlyEur}€`
   );
   return getStatus();
 }

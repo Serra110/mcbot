@@ -6,7 +6,7 @@ async function craftItem(bot, itemName, amount = 1) {
   const itemInfo = mcData.itemsByName[itemName];
 
   if (!itemInfo) {
-    bot.chat(`Nao conheco um item chamado "${itemName}".`);
+    bot.chat(`I don't know an item called "${itemName}".`);
     return;
   }
 
@@ -19,7 +19,7 @@ async function craftItem(bot, itemName, amount = 1) {
   const recipes = bot.recipesFor(itemInfo.id, null, 1, craftingTableBlock);
 
   if (!recipes || recipes.length === 0) {
-    bot.chat(`Nao tenho os materiais/mesa de trabalho necessarios para fazer ${itemName}.`);
+    bot.chat(`I don't have the materials/crafting table needed to make ${itemName}.`);
     return;
   }
 
@@ -31,10 +31,10 @@ async function craftItem(bot, itemName, amount = 1) {
       );
     }
     await bot.craft(recipes[0], amount, craftingTableBlock || null);
-    bot.chat(`Fabriquei ${amount}x ${itemName}.`);
+    bot.chat(`Crafted ${amount}x ${itemName}.`);
   } catch (err) {
-    logger.warn('[crafting] erro ao fabricar:', err.message);
-    bot.chat(`Nao consegui fabricar ${itemName}: ${err.message}`);
+    logger.warn('[crafting] error crafting:', err.message);
+    bot.chat(`Failed to craft ${itemName}: ${err.message}`);
   }
 }
 

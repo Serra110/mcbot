@@ -33,7 +33,7 @@ function enableAutoDefense(bot) {
       attackEntity(bot, hostile);
     }
   }, 1000);
-  logger.info('[combat] auto-defesa ativada.');
+  logger.info('[combat] auto-defense enabled.');
 }
 
 function disableAutoDefense() {
@@ -47,7 +47,7 @@ function attackEntity(bot, entity) {
   try {
     bot.attack(entity);
   } catch (err) {
-    logger.debug('[combat] falha ao atacar:', err.message);
+    logger.debug('[combat] failed to attack:', err.message);
   }
 }
 

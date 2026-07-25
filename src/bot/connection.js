@@ -17,22 +17,22 @@ function createBot() {
   bot.once('spawn', () => {
     const movements = new Movements(bot);
     bot.pathfinder.setMovements(movements);
-    logger.info(`Bot "${config.minecraft.username}" entrou no servidor ${config.minecraft.host}:${config.minecraft.port}`);
+    logger.info(`Bot "${config.minecraft.username}" joined server ${config.minecraft.host}:${config.minecraft.port}`);
     bot.chat('Bot online! Write something here');
   });
 
-  bot.on('kicked', (reason) => logger.error('Bot expulso do servidor:', reason));
+  bot.on('kicked', (reason) => logger.error('Bot kicked from server:', reason));
   bot.on('error', (err) => {
     if (err && err.code === 'ECONNREFUSED') {
       logger.error(
-        'Erro de conexao: nao foi possivel ligar ao servidor Minecraft. Verifica se o servidor esta a correr em',
+        'Connection error: could not connect to Minecraft server. Check that the server is running at',
         config.minecraft.host + ':' + config.minecraft.port
       );
     } else {
-      logger.error('Erro de conexao:', err.message || err);
+      logger.error('Connection error:', err.message || err);
     }
   });
-  bot.on('end', () => logger.warn('Conexao com o servidor terminada.'));
+  bot.on('end', () => logger.warn('Connection to server ended.'));
 
   return bot;
 }
