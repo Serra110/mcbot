@@ -1,6 +1,6 @@
 # Minecraft AI Bot
-# It is impossible to try the project without building it, I am sorry but its a bot.
-
+# It is impossible to try the project without building it, I am sorry but its a bot. 
+If you are the same stardance reviewer as before (the one that was using arch, if its not too much to ask can you create a pull request and give me the repo of ur rice
 A Minecraft bot powered by AIthat can chat with players, mine resources, craft items, build structures, fight mobs, and perform complex tasks automatically.
 
 By default, the bot uses **Ollama** to run AI models locally (free). For more demanding tasks, you can optionally enable **Hack Club AI** to use larger paid models while tracking your monthly spending.
