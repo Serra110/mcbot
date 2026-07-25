@@ -9,6 +9,7 @@
   "scripts": {
     "setup": "node scripts/setup.js",
     "start": "node src/index.js",
+    "bot": "node src/index.js",
     "postinstall": "node scripts/setup.js --skip-install"
   },
   "keywords": [
@@ -20,10 +21,10 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "@openrouter/sdk": "^0.1.11",
-    "dotenv": "^16.4.7",
-    "minecraft-data": "^3.84.1",
-    "mineflayer": "^4.25.0",
+    "@openrouter/sdk": "^0.1.27",
+    "dotenv": "^16.6.1",
+    "minecraft-data": "^3.111.0",
+    "mineflayer": "^4.37.1",
     "mineflayer-pathfinder": "^2.4.5"
   }
 }

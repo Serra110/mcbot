@@ -1,0 +1,60 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Package source
+        run: |
+          VERSION="${GITHUB_REF#refs/tags/}"
+          mkdir -p "release/mcbot-${VERSION}"
+          rsync -av \
+            --exclude='node_modules' \
+            --exclude='.env' \
+            --exclude='data/*.json' \
+            --exclude='.git' \
+            --exclude='release' \
+            . "release/mcbot-${VERSION}/"
+          cd release
+          tar -czf "mcbot-${VERSION}.tar.gz" "mcbot-${VERSION}"
+          zip -r "mcbot-${VERSION}.zip" "mcbot-${VERSION}"
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: mcbot ${{ github.ref_name }}
+          body: |
+            ## mcbot ${{ github.ref_name }}
+
+            Bot de Minecraft com IA — Ollama (gratuito) e Hack Club AI (opcional).
+
+            ### Instalacao rapida
+
+            1. Descarrega o ficheiro para a tua plataforma:
+               - **Windows**: `mcbot-${{ github.ref_name }}.zip`
+               - **Linux/Mac**: `mcbot-${{ github.ref_name }}.tar.gz`
+            2. Descompacta e entra na pasta
+            3. Corre o script de setup:
+               - **Windows**: `.\scripts\setup.ps1`
+               - **Linux/Mac**: `bash scripts/setup.sh`
+            4. Abre o `.env` e configura os dados do teu servidor
+            5. Arranca o bot com o script de start
+
+            ### Requisitos
+
+            - Node.js 18+
+            - Ollama (https://ollama.com/)
+          files: |
+            release/mcbot-${{ github.ref_name }}.tar.gz
+            release/mcbot-${{ github.ref_name }}.zip
