@@ -1,52 +1,52 @@
 # Minecraft AI Bot
 
-Bot de Minecraft com IA que conversa com jogadores, minera recursos, fabrica itens, constroi estruturas, luta contra mobs e executa tarefas complexas automaticamente.
+A Minecraft bot powered by AI that can chat with players, mine resources, craft items, build structures, fight mobs, and perform complex tasks automatically.
 
-Usa **Ollama** por padrao (gratuito, modelos locais). Para tarefas mais exigentes, podes ativar opcionalmente o **Hack Club AI** (modelos pagos maiores com tracking de gastos).
+Uses **Ollama** by default (free, local models). For more demanding tasks, you can optionally enable **Hack Club AI** (larger paid models with spending tracking).
 
 ---
 
 ## Features
 
-- Comandos rapidos integrados (sem IA)
-- Compreensao de comandos por IA
-- Mineração automatica
-- Fabricacao de itens
-- Combate automatico contra mobs hostis
-- Seguimento de jogadores e navegacao
-- Sistema de memoria (`!remember` / `!lembrar`)
-- Tracking de gastos Hack Club AI (`!budget` / `!orcamento`)
-- Suporte a comandos em portugues e ingles
+- Fast built-in commands (no AI needed)
+- AI-powered command understanding
+- Automatic mining
+- Crafting support
+- Automatic combat against hostile mobs
+- Player following and navigation
+- Memory system (`!remember`)
+- Hack Club AI budget tracking (`!budget`)
+- Portuguese and English command support. If English doesn't work, use Portuguese. ronaldo suuuu.
 
 ---
 
 ## Requirements
 
-- Node.js 18+ — [Descarregar](https://nodejs.org/)
-- Minecraft Java Edition Server (local ou remoto, testado em Paper 1.20.1)
-- Ollama — [Descarregar](https://ollama.com/) (obrigatorio)
-- Hack Club AI API Key (opcional, apenas para modelos pagos)
+- Node.js 18+ — [Download](https://nodejs.org/)
+- Minecraft Java Edition Server (local or remote, tested on Paper 1.20.1)
+- Ollama — [Download](https://ollama.com/) (required)
+- Hack Club AI API Key (optional, only for paid models)
 
 ---
 
 ## Installation
 
-### Opcao 1: Download direto (sem git)
+### Option 1: Direct download (no git needed)
 
-1. Vai a [Releases](https://github.com/Serra110/mcbot/releases)
-2. Descarrega o ficheiro para a tua plataforma:
+1. Go to [Releases](https://github.com/Serra110/mcbot/releases)
+2. Download the file for your platform:
    - **Windows**: `mcbot-vX.X.X.zip`
    - **Linux/Mac**: `mcbot-vX.X.X.tar.gz`
-3. Descompacta e entra na pasta
+3. Extract and enter the folder
 
-### Opcao 2: Clonar o repositorio
+### Option 2: Clone the repository
 
 ```bash
 git clone https://github.com/Serra110/mcbot.git
 cd mcbot
 ```
 
-### Setup (ambas as opcoes)
+### Setup (both options)
 
 #### Windows
 
@@ -60,17 +60,17 @@ cd mcbot
 bash scripts/setup.sh
 ```
 
-O setup vai:
-- Verificar que tens Node.js 18+
-- Criar a pasta `data/`
-- Criar o ficheiro `.env` a partir do exemplo
-- Instalar todas as dependencias npm
+The setup will:
+- Verify you have Node.js 18+
+- Create the `data/` folder
+- Create the `.env` file from the example
+- Install all npm dependencies
 
 ---
 
 ## Configuration
 
-Abre o ficheiro `.env` e configura os dados do teu servidor:
+Open the `.env` file and configure your server details:
 
 ```env
 MC_HOST=localhost
@@ -86,43 +86,43 @@ OLLAMA_MODEL=llama3.1:8b
 
 ## AI Providers
 
-### Ollama (Gratuito)
+### Ollama (Free)
 
-Ollama e o provider de IA por padrao.
+Ollama is the default AI provider.
 
-1. Instala o Ollama: https://ollama.com/
-2. Descarrega um modelo:
+1. Install Ollama: https://ollama.com/
+2. Download a model:
    ```bash
    ollama pull llama3.1:8b
    ```
-3. Garante que o Ollama esta a correr antes de iniciar o bot
+3. Make sure Ollama is running before starting the bot
 
-### Hack Club AI (Opcional)
+### Hack Club AI (Optional)
 
-Usa modelos pagos maiores para tarefas mais complexas. Comandos simples continuam a usar Ollama.
+Uses larger paid models for more complex tasks. Simple commands still use Ollama.
 
-Ativa no `.env`:
+Enable in `.env`:
 
 ```env
 HACKCLUB_ENABLED=true
 HACKCLUB_API_KEY=YOUR_KEY
 ```
 
-Tambem podes definir um limite mensal de gastos.
+You can also set a monthly spending limit.
 
 ---
 
 ## Running the Bot
 
-1. Inicia o teu servidor Minecraft
-2. Inicia o Ollama
-3. Corre o bot:
+1. Start your Minecraft server
+2. Start Ollama
+3. Run the bot:
 
 ```bash
 npm start
 ```
 
-Ou usa os scripts:
+Or use the scripts:
 
 #### Windows
 
@@ -136,64 +136,64 @@ Ou usa os scripts:
 bash scripts/start.sh
 ```
 
-Entra no servidor Minecraft e conversa com o bot no chat.
+Join the Minecraft server and chat with the bot.
 
 ---
 
 ## Commands
 
-| Comando | Descricao |
-|---------|-----------|
-| `follow me` | Segue o jogador mais proximo |
-| `stop` | Para a tarefa atual |
-| `status` | Mostra atividade atual |
-| `mine stone 10` | Minera 10 blocos de pedra |
-| `build a small house` | Constroi uma casa pequena |
-| `!remember` | Mostra memoria guardada |
-| `!budget` | Mostra gastos Hack Club AI |
+| Command | Description |
+|---------|-------------|
+| `follow me` | Follow the nearest player |
+| `stop` | Stop the current task |
+| `status` | Show current activity |
+| `mine stone 10` | Mine 10 stone blocks |
+| `build a small house` | Build a small house |
+| `!remember` | Show stored memory |
+| `!budget` | Show Hack Club AI spending |
 
-Se um comando nao for reconhecido, tenta traduzi-lo para portugues.
+If a command isn't recognized, try translating it to Portuguese.
 
 ---
 
 ## Testing
 
-### 1. Inicia o servidor Minecraft
+### 1. Start a Minecraft server
 
-Ativa no `server.properties`:
+Enable in `server.properties`:
 
 ```properties
 online-mode=false
 ```
 
-### 2. Inicia o Ollama
+### 2. Start Ollama
 
 ```bash
 ollama pull llama3.1:8b
 ollama serve
 ```
 
-### 3. Inicia o bot
+### 3. Start the bot
 
 ```bash
 npm start
 ```
 
-Saida esperada:
+Expected output:
 
 ```
 Bot connected to localhost:25565
 ```
 
-### 4. Entra no servidor
+### 4. Join the server
 
-Abre o Minecraft e liga-se a:
+Open Minecraft and connect to:
 
 ```
 localhost:25565
 ```
 
-### 5. Testa estes comandos
+### 5. Try these commands
 
 ```
 follow me
@@ -208,13 +208,13 @@ stop
 
 ## Troubleshooting
 
-| Problema | Solucao |
-|----------|---------|
-| `ECONNREFUSED` | Verifica se o servidor Minecraft esta a correr e se host/porta estao corretos |
-| Ollama nao responde | Verifica se o Ollama esta a correr e se o modelo esta instalado |
-| Bot e expulso | Ativa `online-mode=false` e usa `MC_AUTH=offline` |
-| IA nao entende comandos | Ativa `LOG_LEVEL=debug` no `.env` |
-| Dependencias em falta | Corre `npm install` |
+| Problem | Solution |
+|---------|----------|
+| `ECONNREFUSED` | Check that the Minecraft server is running and host/port are correct |
+| Ollama not responding | Verify that Ollama is running and the model is installed |
+| Bot gets kicked | Enable `online-mode=false` and use `MC_AUTH=offline` |
+| AI doesn't understand commands | Set `LOG_LEVEL=debug` in `.env` |
+| Missing dependencies | Run `npm install` |
 
 ---
 
@@ -233,10 +233,10 @@ stop
 - Node.js 18+
 - Minecraft Java Edition
 - Ollama
-- Hack Club AI API Key (opcional)
+- Hack Club AI API Key (optional)
 
 ---
 
 ### Disclaimer
 
-Este projeto foi desenvolvido com auxilio de ferramentas de IA para debugging e programacao.
+This project was developed with the help of AI tools for debugging and programming.
