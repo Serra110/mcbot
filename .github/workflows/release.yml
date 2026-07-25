@@ -26,6 +26,9 @@ jobs:
             --exclude='.git' \
             --exclude='release' \
             . "release/mcbot-${VERSION}/"
+          chmod +x "release/mcbot-${VERSION}/setup-and-run.sh"
+          chmod +x "release/mcbot-${VERSION}/scripts/setup.sh"
+          chmod +x "release/mcbot-${VERSION}/scripts/start.sh"
           cd release
           tar -czf "mcbot-${VERSION}.tar.gz" "mcbot-${VERSION}"
           zip -r "mcbot-${VERSION}.zip" "mcbot-${VERSION}"
@@ -39,22 +42,22 @@ jobs:
 
             Minecraft AI Bot — Ollama (free) and Hack Club AI (optional).
 
-            ### Quick setup
+            ### Quick start (one script does everything)
 
             1. Download the file for your platform:
                - **Windows**: `mcbot-${{ github.ref_name }}.zip`
                - **Linux/Mac**: `mcbot-${{ github.ref_name }}.tar.gz`
             2. Extract and enter the folder
-            3. Run the setup script:
-               - **Windows**: `.\scripts\setup.ps1`
-               - **Linux/Mac**: `bash scripts/setup.sh`
-            4. Open `.env` and configure your server details
-            5. Start the bot with the start script
+            3. Run the all-in-one script:
+               - **Windows**: double-click `setup-and-run.bat`
+               - **Linux/Mac**: `bash setup-and-run.sh`
+            4. The script will install Node.js packages, Ollama, pull the AI model, and start the bot
+            5. Edit `.env` with your Minecraft server details
 
             ### Requirements
 
-            - Node.js 18+
-            - Ollama (https://ollama.com/)
+            - Node.js 18+ (the script checks for this)
+            - Minecraft Java Edition Server
           files: |
             release/mcbot-${{ github.ref_name }}.tar.gz
             release/mcbot-${{ github.ref_name }}.zip

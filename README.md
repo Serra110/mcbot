@@ -31,22 +31,33 @@ Uses **Ollama** by default (free, local models). For more demanding tasks, you c
 
 ## Installation
 
-### Option 1: Direct download (no git needed)
+### Easiest way: one script does everything
 
 1. Go to [Releases](https://github.com/Serra110/mcbot/releases)
 2. Download the file for your platform:
    - **Windows**: `mcbot-vX.X.X.zip`
    - **Linux/Mac**: `mcbot-vX.X.X.tar.gz`
 3. Extract and enter the folder
+4. Run the all-in-one script:
+   - **Windows**: double-click `setup-and-run.bat`
+   - **Linux/Mac**: `bash setup-and-run.sh`
 
-### Option 2: Clone the repository
+The script will:
+- Check you have Node.js 18+
+- Install all npm packages (mineflayer, pathfinder, etc.)
+- Create `.env` from the example
+- Install Ollama if needed
+- Pull the AI model (llama3.1:8b)
+- Start the bot
+
+### Manual setup
+
+#### Clone the repository
 
 ```bash
 git clone https://github.com/Serra110/mcbot.git
 cd mcbot
 ```
-
-### Setup (both options)
 
 #### Windows
 
@@ -59,12 +70,6 @@ cd mcbot
 ```bash
 bash scripts/setup.sh
 ```
-
-The setup will:
-- Verify you have Node.js 18+
-- Create the `data/` folder
-- Create the `.env` file from the example
-- Install all npm dependencies
 
 ---
 
