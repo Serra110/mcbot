@@ -1,6 +1,5 @@
 # Minecraft AI Bot
 # It is impossible to try the project without building it, I am sorry but its a bot. 
-If you are the same stardance reviewer as before (the one that was using arch, if its not too much to ask can you create a pull request and give me the repo of ur rice
 
 A Minecraft bot powered by AI that can chat with players, mine resources, craft items, build structures, fight mobs, and perform complex tasks automatically.
 
