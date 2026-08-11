@@ -20,13 +20,11 @@ const config = {
   },
 
   ai: {
-    
     ollama: {
       baseUrl: process.env.OLLAMA_BASE_URL || 'http://localhost:11434',
       model: process.env.OLLAMA_MODEL || 'llama3.1:8b',
     },
 
-   
     hackclub: {
       enabled: toBool(process.env.HACKCLUB_ENABLED, false),
       apiKey: process.env.HACKCLUB_API_KEY || '',
@@ -38,7 +36,6 @@ const config = {
   budget: {
     monthlyEur: toNumber(process.env.MONTHLY_BUDGET_EUR, 3.0),
     estCostPer1kTokensEur: toNumber(process.env.EST_COST_PER_1K_TOKENS_EUR, 0.00015),
-  
     usdToEurRate: toNumber(process.env.USD_TO_EUR_RATE, 0.93),
   },
 

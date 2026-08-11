@@ -17,9 +17,6 @@ echo ""
 ROOT="$(cd "$(dirname "$0")" && pwd)"
 cd "$ROOT"
 
-OS="$(uname -s)"
-
-# 1. Check Node.js
 echo -e "${BOLD}[1/6] Checking Node.js...${NC}"
 if ! command -v node &>/dev/null; then
   echo -e "${RED}[ERROR] Node.js is not installed!${NC}"
@@ -38,7 +35,6 @@ if [ "$NODE_MAJOR" -lt 18 ]; then
 fi
 echo -e "${GREEN}[OK] Node.js $(node --version) detected${NC}"
 
-# 2. Install npm packages
 echo ""
 echo -e "${BOLD}[2/6] Installing npm packages...${NC}"
 if ! npm install; then
@@ -47,7 +43,6 @@ if ! npm install; then
 fi
 echo -e "${GREEN}[OK] npm packages installed${NC}"
 
-# 3. Create .env if needed
 echo ""
 echo -e "${BOLD}[3/6] Checking configuration...${NC}"
 if [ ! -f .env ]; then
@@ -58,10 +53,10 @@ if [ ! -f .env ]; then
     echo -e "${YELLOW}>>> OPEN .env AND CONFIGURE YOUR SERVER DETAILS <<<${NC}"
     echo ""
     if command -v nano &>/dev/null; then
-      read -p "Press Enter to open .env in nano (or Ctrl+C to edit later)... "
+      read -p "Press Enter to open .env in nano (or Ctrl+C to edit later)... " || true
       nano .env
     elif command -v vim &>/dev/null; then
-      read -p "Press Enter to open .env in vim (or Ctrl+C to edit later)... "
+      read -p "Press Enter to open .env in vim (or Ctrl+C to edit later)... " || true
       vim .env
     else
       echo "Edit the .env file before running the bot."
@@ -71,14 +66,12 @@ else
   echo -e "${GREEN}[OK] .env already exists${NC}"
 fi
 
-# 4. Check Ollama
 echo ""
 echo -e "${BOLD}[4/6] Checking Ollama...${NC}"
 if ! command -v ollama &>/dev/null; then
   echo "Ollama is not installed. Installing now..."
   echo ""
-  curl -fsSL https://ollama.com/install.sh | sh
-  if [ $? -ne 0 ]; then
+  if ! curl -fsSL https://ollama.com/install.sh | sh; then
     echo -e "${RED}[ERROR] Failed to install Ollama${NC}"
     echo "Install manually from: https://ollama.com/download"
     exit 1
@@ -88,7 +81,6 @@ else
   echo -e "${GREEN}[OK] Ollama already installed${NC}"
 fi
 
-# 5. Pull model
 echo ""
 echo -e "${BOLD}[5/6] Pulling AI model (llama3.1:8b)...${NC}"
 if ! ollama pull llama3.1:8b; then
@@ -97,7 +89,6 @@ if ! ollama pull llama3.1:8b; then
 fi
 echo -e "${GREEN}[OK] Model ready${NC}"
 
-# 6. Start Ollama and run bot
 echo ""
 echo -e "${BOLD}[6/6] Starting bot...${NC}"
 echo ""

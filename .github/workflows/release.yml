@@ -49,7 +49,7 @@ jobs:
                - **Linux/Mac**: `mcbot-${{ github.ref_name }}.tar.gz`
             2. Extract and enter the folder
             3. Run the all-in-one script:
-               - **Windows**: double-click `setup-and-run.bat`
+               - **Windows**: double-click `setup-and-run.bat` (or right-click `setup-and-run.ps1` -> Run with PowerShell)
                - **Linux/Mac**: `bash setup-and-run.sh`
             4. The script will install Node.js packages, Ollama, pull the AI model, and start the bot
             5. Edit `.env` with your Minecraft server details

@@ -9,7 +9,6 @@ Write-Host ""
 
 Set-Location $Root
 
-# 1. Check Node.js
 Write-Host "[1/6] Checking Node.js..." -ForegroundColor White
 try {
     $nodeVersion = node --version
@@ -25,7 +24,6 @@ try {
     exit 1
 }
 
-# 2. Install npm packages
 Write-Host ""
 Write-Host "[2/6] Installing npm packages..." -ForegroundColor White
 try {
@@ -37,7 +35,6 @@ try {
     exit 1
 }
 
-# 3. Create .env if needed
 Write-Host ""
 Write-Host "[3/6] Checking configuration..." -ForegroundColor White
 if (-not (Test-Path ".env")) {
@@ -53,17 +50,15 @@ if (-not (Test-Path ".env")) {
     Write-Host "[OK] .env already exists" -ForegroundColor Green
 }
 
-# 4. Check Ollama
 Write-Host ""
 Write-Host "[4/6] Checking Ollama..." -ForegroundColor White
-try {
-    $ollamaVersion = ollama --version
-    Write-Host "[OK] Ollama already installed" -ForegroundColor Green
-} catch {
+$ollamaFound = Get-Command ollama -ErrorAction SilentlyContinue
+if (-not $ollamaFound) {
     Write-Host "Ollama is not installed. Installing now..." -ForegroundColor Yellow
     Write-Host ""
     try {
         winget install Ollama.Ollama --accept-source-agreements --accept-package-agreements
+        $env:Path = [System.Environment]::GetEnvironmentVariable("Path", "Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path", "User")
         Write-Host "[OK] Ollama installed" -ForegroundColor Green
     } catch {
         Write-Host "[ERROR] Could not install Ollama automatically" -ForegroundColor Red
@@ -72,9 +67,10 @@ try {
         Read-Host "Press Enter to exit"
         exit 1
     }
+} else {
+    Write-Host "[OK] Ollama already installed" -ForegroundColor Green
 }
 
-# 5. Pull model
 Write-Host ""
 Write-Host "[5/6] Pulling AI model (llama3.1:8b)..." -ForegroundColor White
 try {
@@ -86,7 +82,6 @@ try {
     exit 1
 }
 
-# 6. Start Ollama and run bot
 Write-Host ""
 Write-Host "[6/6] Starting bot..." -ForegroundColor White
 Write-Host ""
@@ -96,7 +91,7 @@ Write-Host "  Join your Minecraft server and chat." -ForegroundColor Green
 Write-Host "========================================" -ForegroundColor Green
 Write-Host ""
 
-Start-Process -NoNewWindow -FilePath "ollama" -ArgumentList "serve"
+Start-Process -FilePath "ollama" -ArgumentList "serve" -WindowStyle Minimized
 Start-Sleep -Seconds 3
 npm start
 
