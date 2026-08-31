@@ -42,7 +42,7 @@ Portuguese and english support, since the bot was first made with portuguese, be
 this will:
 - Check you have Node.js 18+
 - Install all npm packages, like mineflayer
-- Create `.env` from the example
+- Create .env from the example
 - Pull the AI model (llama3.1:8b)
 - Start the bot 
 
