@@ -93,6 +93,20 @@ Write-Host ""
 
 Start-Process -FilePath "ollama" -ArgumentList "serve" -WindowStyle Minimized
 Start-Sleep -Seconds 3
-npm start
+$paperProcess = Start-Process -FilePath "java" -ArgumentList "-jar", "paper-1.20.1-196.jar" -WorkingDirectory $Root -PassThru -WindowStyle Normal
+$null = [Console]::CancelKeyPress += {
+    if ($paperProcess) {
+        Stop-Process -Id $paperProcess.Id -Force -ErrorAction SilentlyContinue
+    }
+    exit 0
+}
+try {
+    npm start
+}
+finally {
+    if ($paperProcess) {
+        Stop-Process -Id $paperProcess.Id -Force -ErrorAction SilentlyContinue
+    }
+}
 
 Read-Host "Press Enter to exit"

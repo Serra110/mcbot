@@ -4,7 +4,7 @@ const budget = require('./budget-tracker');
 const hackclub = require('./hackclub-client');
 
 
-async function chat(messages, { temperature = 0.5, maxTokens = 800, jsonMode = false } = {}) {
+async function chat(messages, { temperature = 0.5, maxTokens = 800, jsonMode = false, model } = {}) {
   if (!config.ai.hackclub.enabled) {
     throw new Error('Hack Club AI is disabled (HACKCLUB_ENABLED=false in .env). Use the free AI (Ollama).');
   }
@@ -21,7 +21,7 @@ async function chat(messages, { temperature = 0.5, maxTokens = 800, jsonMode = f
     throw new Error('BUDGET_EXHAUSTED');
   }
 
-  const response = await hackclub.chatRaw(messages, { temperature, maxTokens, jsonMode });
+  const response = await hackclub.chatRaw(messages, { temperature, maxTokens, jsonMode, model });
   const text = response?.choices?.[0]?.message?.content ?? '';
   const usage = response?.usage;
 

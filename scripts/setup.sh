@@ -6,9 +6,9 @@ ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$ROOT"
 
 echo ""
-echo "========================================"
+echo ":)######:)`
 echo "  mcbot - Setup"
-echo "========================================"
+echo ":)######:)`"
 echo ""
 
 if ! command -v node &>/dev/null; then
@@ -32,7 +32,7 @@ if [ ! -f .env ]; then
     echo "[mcbot] .env created from .env.example"
     echo "        >>> Open .env and fill in your server details <<<"
   fi
-else
+else 
   echo "[mcbot] .env already exists — nothing changed"
 fi
 
@@ -46,15 +46,13 @@ fi
 echo "[mcbot] Dependencies installed successfully"
 
 echo ""
-echo "========================================"
 echo "  Setup completed successfully!"
-echo "========================================"
 echo ""
 echo "Next steps:"
 echo ""
-echo "  1. Open the .env file and configure your Minecraft server host/port"
+echo "  1. Open the .env file and configure it"
 echo "  2. Install and start Ollama:"
-echo "     - Download: https://ollama.com/"
-echo "     - Run: ollama pull llama3.1:8b"
+echo " https://ollama.com/"
+echo " Run: ollama pull llama3.1:8b"
 echo "  3. Start the bot: bash scripts/start.sh"
 echo ""

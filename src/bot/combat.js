@@ -1,4 +1,5 @@
 const logger = require('../utils/logger');
+const { goals } = require('mineflayer-pathfinder');
 
 const HOSTILE_MOBS = new Set([
   'zombie', 'skeleton', 'creeper', 'spider', 'cave_spider', 'enderman',
@@ -51,6 +52,67 @@ function attackEntity(bot, entity) {
   }
 }
 
+function findPlayerEntity(bot, playerName) {
+  if (!playerName) return null;
+  const name = String(playerName).toLowerCase();
+  const entry = bot.players[name] || Object.values(bot.players).find((p) => p.username && String(p.username).toLowerCase() === name);
+  return entry && entry.entity ? entry.entity : null;
+}
+
+function equipBestSword(bot) {
+  const swords = ['diamond_sword', 'iron_sword', 'stone_sword', 'wooden_sword'];
+  const sword = bot.inventory.items().find((slot) => swords.includes(slot.name));
+  if (sword) {
+    try {
+      bot.equip(sword, 'hand');
+    } catch {}
+  }
+}
+
+function attackPlayer(bot, playerName, { durationMs = 20000 } = {}) {
+  const entity = findPlayerEntity(bot, playerName);
+  if (!entity) {
+    bot.chat(`I can't find a player named "${playerName}".`);
+    return { ok: false, reason: 'not_found' };
+  }
+
+  equipBestSword(bot);
+  logger.info(`[combat] attacking player ${playerName}`);
+  bot.chat(`Attacking ${playerName}!`);
+
+  const endAt = Date.now() + durationMs;
+  const interval = setInterval(() => {
+    const target = findPlayerEntity(bot, playerName);
+    if (!target) {
+      bot.chat(`${playerName} is gone, stopping.`);
+      clearInterval(interval);
+      return;
+    }
+
+    if (Date.now() >= endAt) {
+      bot.chat(`Stopped attacking ${playerName} (time limit).`);
+      clearInterval(interval);
+      return;
+    }
+
+    const dist = bot.entity.position.distanceTo(target.position);
+    if (dist < 4) {
+      equipBestSword(bot);
+      attackEntity(bot, target);
+    } else {
+      try {
+        bot.pathfinder.setGoal(new goals.GoalFollow(target, 2), true);
+      } catch (e) {
+        logger.debug('[combat] pathfinding follow failed:', e.message);
+      }
+    }
+  }, 400);
+
+  return { ok: true, stop: () => clearInterval(interval) };
+}
+
+
+
 function fleeFrom(bot, entity) {
   const dx = bot.entity.position.x - entity.position.x;
   const dz = bot.entity.position.z - entity.position.z;
@@ -60,4 +122,4 @@ function fleeFrom(bot, entity) {
   setTimeout(() => bot.setControlState('forward', false), 1500);
 }
 
-module.exports = { enableAutoDefense, disableAutoDefense, findNearestHostile };
+module.exports = { enableAutoDefense, disableAutoDefense, findNearestHostile, attackPlayer };

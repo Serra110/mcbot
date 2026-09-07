@@ -18,30 +18,28 @@ function getClient() {
 
 
 
-async function chatRaw(messages, { jsonMode = false, temperature = 0.4, maxTokens = 800 } = {}) {
+async function chatRaw(messages, { jsonMode = false, temperature = 0.4, maxTokens = 800, model } = {}) {
   const c = getClient();
 
   const chatRequest = {
-    model: config.ai.hackclub.model,
+    model: model || config.ai.hackclub.model,
     messages,
     temperature,
-    maxTokens,
+    max_tokens: maxTokens,
     stream: false,
   };
 
   if (jsonMode) {
-    chatRequest.responseFormat = { type: 'json_object' };
+    chatRequest.response_format = { type: 'json_object' };
   }
 
   try {
-    return await c.chat.send({ chatRequest });
+    return await c.chat.send(chatRequest);
   } catch (err) {
-    
-    
     if (jsonMode) {
       logger.warn('[hackclub] request with responseFormat failed, retrying without json mode:', err.message);
-      const { responseFormat, ...rest } = chatRequest;
-      return await c.chat.send({ chatRequest: rest });
+      const { response_format, ...rest } = chatRequest;
+      return await c.chat.send(rest);
     }
     throw err;
   }

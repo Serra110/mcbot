@@ -129,7 +129,7 @@ When you run the bot you should receive this at the terminal:
 ```
 Bot connected to localhost:25565
 ```
-if it doesnt something is very wrong :) and it probably wont join the server, if it does maybe it was a cosmic ra that flipped a bit or some dark magic
+if it doesnt something is very wrong :) and it probably wont join the server, if it does maybe it was a cosmic ray that flipped a bit or some dark magic
 
 ---
 

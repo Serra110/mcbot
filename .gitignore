@@ -14,3 +14,29 @@ npm-debug.log*
 # Sistema
 .DS_Store
 Thumbs.db
+.console_history
+
+# Servidor Paper (runtime local — fora do repositório)
+paper-*.jar
+eula.txt
+server.properties
+spigot.yml
+bukkit.yml
+commands.yml
+help.yml
+permissions.yml
+ops.json
+banned-ips.json
+banned-players.json
+whitelist.json
+usercache.json
+version_history.json
+config/paper-*.yml
+libraries/
+cache/
+logs/
+plugins/
+versions/
+flatworld*/
+world*/
+scripts/start-local-runtime.js

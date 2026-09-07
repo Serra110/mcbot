@@ -33,6 +33,13 @@ const config = {
     },
   },
 
+  building: {
+    schematicEnabled: toBool(process.env.SCHEMATIC_GEN_ENABLED, true),
+    schematicModel: process.env.SCHEMATIC_MODEL || process.env.HACKCLUB_MODEL || 'openai/gpt-5.4-mini',
+    maxBlocks: toNumber(process.env.SCHEMATIC_MAX_BLOCKS, 400),
+    schematicsDir: process.env.SCHEMATICS_DIR || require('path').join(__dirname, '..', 'schematics'),
+  },
+
   budget: {
     monthlyEur: toNumber(process.env.MONTHLY_BUDGET_EUR, 3.0),
     estCostPer1kTokensEur: toNumber(process.env.EST_COST_PER_1K_TOKENS_EUR, 0.00015),
